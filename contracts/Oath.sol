@@ -43,9 +43,36 @@ library SafeMath {
 }
 
 contract Oath {
+    /**
+    * Our owner and witnesses
+    */
     address public owner;
 
+    address public witnesses1;
+    address public witnesses2;
+
+    bool public witnesses1Voted;
+    bool public witnesses2Voted;
+
+    /**
+    * The contract constructor
+    */
     constructor() public {
         owner = msg.sender;
+    }
+
+    /**
+    * A witnesses can register as a voter
+    */
+    function registerAsAVoter1() public {
+        require(witnesses1 == address(0));
+
+        witnesses1 = msg.sender;
+    }
+
+    function registerAsAVoter2() public {
+        require(witnesses2 == address(0));
+
+        witnesses2 = msg.sender;
     }
 }
