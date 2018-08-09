@@ -54,6 +54,20 @@ contract Oath {
     bool public witnesses1Voted;
     bool public witnesses2Voted;
 
+    uint private witnesses1Deposit;
+    uint private witnesses2Deposit;
+
+    bool public oathFinished;
+    address public theWinner;
+    uint gains;
+
+    /**
+    * The logs that will be emitted in every step of the contract's life cycle
+    */
+    event VoteStartsEvent(address witnesses1, address witnesses2);
+    event EndOfRoundEvent(uint witnesses1Deposit, uint witnesses2Deposit);
+    event EndOfOathEvent(address winner, uint gains);
+
     /**
     * The contract constructor
     */
@@ -66,6 +80,7 @@ contract Oath {
     */
     function registerAsAVoter1() public {
         require(witnesses1 == address(0));
+        require(witnesses2 == address(0));
 
         witnesses1 = msg.sender;
     }
@@ -74,5 +89,7 @@ contract Oath {
         require(witnesses2 == address(0));
 
         witnesses2 = msg.sender;
+
+        emit VoteStartsEvent(witnesses1, witnesses2);
     }
 }
