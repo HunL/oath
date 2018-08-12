@@ -115,8 +115,33 @@ contract Oath {
                 endOfOath(witnesses1);
             } else if(witnesses1Deposit >= witnesses2Deposit * 2) {
                 endOfOath(witnesses2);
+            } else {
+                endOfRound();
             }
-            endOfRound();
         }
+    }
+
+    function endOfRound() internal {
+        witnesses1Voted = false;
+        witnesses2Voted = false;
+
+        emit EndOfRoundEvent(witnesses1Deposit, witnesses2Deposit);
+    }
+
+    function endOfOath(address winner) internal {
+        oathFinished = true;
+        theWinner = winner;
+
+        gains = witnesses1Deposit + witnesses2Deposit;
+        emit EndOfOathEvent(winner, gains);
+    }
+
+    function withraw() public {
+        require(oathFinished && theWinner == msg.sender);
+
+        uint amount = gains;
+
+        gains = 0;
+        msg.sender.transfer(amount);
     }
 }
