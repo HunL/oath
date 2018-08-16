@@ -17,21 +17,13 @@ fi
 
 fun_start ()
 {
-    ${DAPP_ROOT_DIR}/bin/$1 start
+    ${DAPP_ROOT_DIR}/script/start.sh
 }
 
-fun_stop ()
-{
-    ${DAPP_ROOT_DIR}/bin/$1 stop
-}
-
-#geth --rpc 
-#     --rpcaddr 127.0.0.1 
-#     --port 10071 
-#     --rpcport 10070 
-#     --rpcapi "personal,db,eth,net,web3" 
-#     --datadir "/home/jeff/work/ethereum/oath/chain" 
-#     console 2>>eee.log
+#fun_stop ()
+#{
+#    ${DAPP_ROOT_DIR}/bin/$1 stop
+#}
 
 # 使用说明
 fun_usage ()
@@ -41,7 +33,7 @@ fun_usage ()
     echo "$0 动作 [选项]"
     echo "动作: "
     echo "  start       启动节点"
-    echo "  stop        停止节点"
+#    echo "  stop        停止节点"
     echo ""
     echo "选项: "
     echo "  -h, --help  显示本信息"
@@ -65,6 +57,6 @@ shift
 case ${ACTION} in
     '') fun_usage;;
     'start') fun_start $1;;
-    'stop') fun_stop $1;;
+#    'stop') fun_stop $1;;
     *) echo "参数错误！"; fun_usage; exit 1;;
 esac
