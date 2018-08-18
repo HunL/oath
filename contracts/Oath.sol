@@ -97,7 +97,7 @@ contract Oath {
     * Every round a player can put a sum of ether, if one of the player put 
     * in twice or more the money (in total) than the other did, the first wins
     */
-    function vote() public payble {
+    function vote() public payable {
         require(!oathFinished && (msg.sender == witnesses1 || msg.sender == witnesses2));
 
         if(msg.sender == witnesses1) {
